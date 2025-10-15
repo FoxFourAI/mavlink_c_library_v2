@@ -1,11 +1,17 @@
 #pragma once
 // MESSAGE F4_DETECTOR PACKING
 
-#define MAVLINK_MSG_ID_F4_DETECTOR 61301
+#define MAVLINK_MSG_ID_F4_DETECTOR 62709
 
 
 typedef struct __mavlink_f4_detector_t {
  uint32_t id; /*<  Unique detection identifier.*/
+ int32_t latitude; /*< [degE7] Latitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).*/
+ int32_t longitude; /*< [degE7] Longitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).*/
+ float dist; /*< [m] Distance from the aircraft sensor/camera focal point to the POI. NAN if unknown.*/
+ float vel_n; /*< [m/s] North velocity of the POI. NAN if unknown.*/
+ float vel_e; /*< [m/s] East velocity of the POI. NAN if unknown.*/
+ float vel_d; /*< [m/s] Down velocity of the POI. NAN if unknown.*/
  float x; /*<  Normalized center X coordinate.*/
  float y; /*<  Normalized center Y coordinate.*/
  float w; /*<  Normalized width.*/
@@ -13,39 +19,51 @@ typedef struct __mavlink_f4_detector_t {
  uint8_t class_type; /*<  Object classification.*/
 } mavlink_f4_detector_t;
 
-#define MAVLINK_MSG_ID_F4_DETECTOR_LEN 21
-#define MAVLINK_MSG_ID_F4_DETECTOR_MIN_LEN 21
-#define MAVLINK_MSG_ID_61301_LEN 21
-#define MAVLINK_MSG_ID_61301_MIN_LEN 21
+#define MAVLINK_MSG_ID_F4_DETECTOR_LEN 45
+#define MAVLINK_MSG_ID_F4_DETECTOR_MIN_LEN 45
+#define MAVLINK_MSG_ID_62709_LEN 45
+#define MAVLINK_MSG_ID_62709_MIN_LEN 45
 
-#define MAVLINK_MSG_ID_F4_DETECTOR_CRC 184
-#define MAVLINK_MSG_ID_61301_CRC 184
+#define MAVLINK_MSG_ID_F4_DETECTOR_CRC 147
+#define MAVLINK_MSG_ID_62709_CRC 147
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_F4_DETECTOR { \
-    61301, \
+    62709, \
     "F4_DETECTOR", \
-    6, \
+    12, \
     {  { "id", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_f4_detector_t, id) }, \
-         { "class_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 20, offsetof(mavlink_f4_detector_t, class_type) }, \
-         { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_f4_detector_t, x) }, \
-         { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_f4_detector_t, y) }, \
-         { "w", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_f4_detector_t, w) }, \
-         { "h", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_f4_detector_t, h) }, \
+         { "class_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 44, offsetof(mavlink_f4_detector_t, class_type) }, \
+         { "latitude", NULL, MAVLINK_TYPE_INT32_T, 0, 4, offsetof(mavlink_f4_detector_t, latitude) }, \
+         { "longitude", NULL, MAVLINK_TYPE_INT32_T, 0, 8, offsetof(mavlink_f4_detector_t, longitude) }, \
+         { "dist", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_f4_detector_t, dist) }, \
+         { "vel_n", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_f4_detector_t, vel_n) }, \
+         { "vel_e", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_f4_detector_t, vel_e) }, \
+         { "vel_d", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_f4_detector_t, vel_d) }, \
+         { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_f4_detector_t, x) }, \
+         { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_f4_detector_t, y) }, \
+         { "w", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_f4_detector_t, w) }, \
+         { "h", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_f4_detector_t, h) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_F4_DETECTOR { \
     "F4_DETECTOR", \
-    6, \
+    12, \
     {  { "id", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_f4_detector_t, id) }, \
-         { "class_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 20, offsetof(mavlink_f4_detector_t, class_type) }, \
-         { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 4, offsetof(mavlink_f4_detector_t, x) }, \
-         { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_f4_detector_t, y) }, \
-         { "w", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_f4_detector_t, w) }, \
-         { "h", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_f4_detector_t, h) }, \
+         { "class_type", NULL, MAVLINK_TYPE_UINT8_T, 0, 44, offsetof(mavlink_f4_detector_t, class_type) }, \
+         { "latitude", NULL, MAVLINK_TYPE_INT32_T, 0, 4, offsetof(mavlink_f4_detector_t, latitude) }, \
+         { "longitude", NULL, MAVLINK_TYPE_INT32_T, 0, 8, offsetof(mavlink_f4_detector_t, longitude) }, \
+         { "dist", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_f4_detector_t, dist) }, \
+         { "vel_n", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_f4_detector_t, vel_n) }, \
+         { "vel_e", NULL, MAVLINK_TYPE_FLOAT, 0, 20, offsetof(mavlink_f4_detector_t, vel_e) }, \
+         { "vel_d", NULL, MAVLINK_TYPE_FLOAT, 0, 24, offsetof(mavlink_f4_detector_t, vel_d) }, \
+         { "x", NULL, MAVLINK_TYPE_FLOAT, 0, 28, offsetof(mavlink_f4_detector_t, x) }, \
+         { "y", NULL, MAVLINK_TYPE_FLOAT, 0, 32, offsetof(mavlink_f4_detector_t, y) }, \
+         { "w", NULL, MAVLINK_TYPE_FLOAT, 0, 36, offsetof(mavlink_f4_detector_t, w) }, \
+         { "h", NULL, MAVLINK_TYPE_FLOAT, 0, 40, offsetof(mavlink_f4_detector_t, h) }, \
          } \
 }
 #endif
@@ -58,6 +76,12 @@ typedef struct __mavlink_f4_detector_t {
  *
  * @param id  Unique detection identifier.
  * @param class_type  Object classification.
+ * @param latitude [degE7] Latitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param longitude [degE7] Longitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param dist [m] Distance from the aircraft sensor/camera focal point to the POI. NAN if unknown.
+ * @param vel_n [m/s] North velocity of the POI. NAN if unknown.
+ * @param vel_e [m/s] East velocity of the POI. NAN if unknown.
+ * @param vel_d [m/s] Down velocity of the POI. NAN if unknown.
  * @param x  Normalized center X coordinate.
  * @param y  Normalized center Y coordinate.
  * @param w  Normalized width.
@@ -65,21 +89,33 @@ typedef struct __mavlink_f4_detector_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_f4_detector_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint32_t id, uint8_t class_type, float x, float y, float w, float h)
+                               uint32_t id, uint8_t class_type, int32_t latitude, int32_t longitude, float dist, float vel_n, float vel_e, float vel_d, float x, float y, float w, float h)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_F4_DETECTOR_LEN];
     _mav_put_uint32_t(buf, 0, id);
-    _mav_put_float(buf, 4, x);
-    _mav_put_float(buf, 8, y);
-    _mav_put_float(buf, 12, w);
-    _mav_put_float(buf, 16, h);
-    _mav_put_uint8_t(buf, 20, class_type);
+    _mav_put_int32_t(buf, 4, latitude);
+    _mav_put_int32_t(buf, 8, longitude);
+    _mav_put_float(buf, 12, dist);
+    _mav_put_float(buf, 16, vel_n);
+    _mav_put_float(buf, 20, vel_e);
+    _mav_put_float(buf, 24, vel_d);
+    _mav_put_float(buf, 28, x);
+    _mav_put_float(buf, 32, y);
+    _mav_put_float(buf, 36, w);
+    _mav_put_float(buf, 40, h);
+    _mav_put_uint8_t(buf, 44, class_type);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_F4_DETECTOR_LEN);
 #else
     mavlink_f4_detector_t packet;
     packet.id = id;
+    packet.latitude = latitude;
+    packet.longitude = longitude;
+    packet.dist = dist;
+    packet.vel_n = vel_n;
+    packet.vel_e = vel_e;
+    packet.vel_d = vel_d;
     packet.x = x;
     packet.y = y;
     packet.w = w;
@@ -102,6 +138,12 @@ static inline uint16_t mavlink_msg_f4_detector_pack(uint8_t system_id, uint8_t c
  *
  * @param id  Unique detection identifier.
  * @param class_type  Object classification.
+ * @param latitude [degE7] Latitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param longitude [degE7] Longitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param dist [m] Distance from the aircraft sensor/camera focal point to the POI. NAN if unknown.
+ * @param vel_n [m/s] North velocity of the POI. NAN if unknown.
+ * @param vel_e [m/s] East velocity of the POI. NAN if unknown.
+ * @param vel_d [m/s] Down velocity of the POI. NAN if unknown.
  * @param x  Normalized center X coordinate.
  * @param y  Normalized center Y coordinate.
  * @param w  Normalized width.
@@ -109,21 +151,33 @@ static inline uint16_t mavlink_msg_f4_detector_pack(uint8_t system_id, uint8_t c
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_f4_detector_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               uint32_t id, uint8_t class_type, float x, float y, float w, float h)
+                               uint32_t id, uint8_t class_type, int32_t latitude, int32_t longitude, float dist, float vel_n, float vel_e, float vel_d, float x, float y, float w, float h)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_F4_DETECTOR_LEN];
     _mav_put_uint32_t(buf, 0, id);
-    _mav_put_float(buf, 4, x);
-    _mav_put_float(buf, 8, y);
-    _mav_put_float(buf, 12, w);
-    _mav_put_float(buf, 16, h);
-    _mav_put_uint8_t(buf, 20, class_type);
+    _mav_put_int32_t(buf, 4, latitude);
+    _mav_put_int32_t(buf, 8, longitude);
+    _mav_put_float(buf, 12, dist);
+    _mav_put_float(buf, 16, vel_n);
+    _mav_put_float(buf, 20, vel_e);
+    _mav_put_float(buf, 24, vel_d);
+    _mav_put_float(buf, 28, x);
+    _mav_put_float(buf, 32, y);
+    _mav_put_float(buf, 36, w);
+    _mav_put_float(buf, 40, h);
+    _mav_put_uint8_t(buf, 44, class_type);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_F4_DETECTOR_LEN);
 #else
     mavlink_f4_detector_t packet;
     packet.id = id;
+    packet.latitude = latitude;
+    packet.longitude = longitude;
+    packet.dist = dist;
+    packet.vel_n = vel_n;
+    packet.vel_e = vel_e;
+    packet.vel_d = vel_d;
     packet.x = x;
     packet.y = y;
     packet.w = w;
@@ -149,6 +203,12 @@ static inline uint16_t mavlink_msg_f4_detector_pack_status(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param id  Unique detection identifier.
  * @param class_type  Object classification.
+ * @param latitude [degE7] Latitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param longitude [degE7] Longitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param dist [m] Distance from the aircraft sensor/camera focal point to the POI. NAN if unknown.
+ * @param vel_n [m/s] North velocity of the POI. NAN if unknown.
+ * @param vel_e [m/s] East velocity of the POI. NAN if unknown.
+ * @param vel_d [m/s] Down velocity of the POI. NAN if unknown.
  * @param x  Normalized center X coordinate.
  * @param y  Normalized center Y coordinate.
  * @param w  Normalized width.
@@ -157,21 +217,33 @@ static inline uint16_t mavlink_msg_f4_detector_pack_status(uint8_t system_id, ui
  */
 static inline uint16_t mavlink_msg_f4_detector_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint32_t id,uint8_t class_type,float x,float y,float w,float h)
+                                   uint32_t id,uint8_t class_type,int32_t latitude,int32_t longitude,float dist,float vel_n,float vel_e,float vel_d,float x,float y,float w,float h)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_F4_DETECTOR_LEN];
     _mav_put_uint32_t(buf, 0, id);
-    _mav_put_float(buf, 4, x);
-    _mav_put_float(buf, 8, y);
-    _mav_put_float(buf, 12, w);
-    _mav_put_float(buf, 16, h);
-    _mav_put_uint8_t(buf, 20, class_type);
+    _mav_put_int32_t(buf, 4, latitude);
+    _mav_put_int32_t(buf, 8, longitude);
+    _mav_put_float(buf, 12, dist);
+    _mav_put_float(buf, 16, vel_n);
+    _mav_put_float(buf, 20, vel_e);
+    _mav_put_float(buf, 24, vel_d);
+    _mav_put_float(buf, 28, x);
+    _mav_put_float(buf, 32, y);
+    _mav_put_float(buf, 36, w);
+    _mav_put_float(buf, 40, h);
+    _mav_put_uint8_t(buf, 44, class_type);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_F4_DETECTOR_LEN);
 #else
     mavlink_f4_detector_t packet;
     packet.id = id;
+    packet.latitude = latitude;
+    packet.longitude = longitude;
+    packet.dist = dist;
+    packet.vel_n = vel_n;
+    packet.vel_e = vel_e;
+    packet.vel_d = vel_d;
     packet.x = x;
     packet.y = y;
     packet.w = w;
@@ -195,7 +267,7 @@ static inline uint16_t mavlink_msg_f4_detector_pack_chan(uint8_t system_id, uint
  */
 static inline uint16_t mavlink_msg_f4_detector_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_f4_detector_t* f4_detector)
 {
-    return mavlink_msg_f4_detector_pack(system_id, component_id, msg, f4_detector->id, f4_detector->class_type, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
+    return mavlink_msg_f4_detector_pack(system_id, component_id, msg, f4_detector->id, f4_detector->class_type, f4_detector->latitude, f4_detector->longitude, f4_detector->dist, f4_detector->vel_n, f4_detector->vel_e, f4_detector->vel_d, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
 }
 
 /**
@@ -209,7 +281,7 @@ static inline uint16_t mavlink_msg_f4_detector_encode(uint8_t system_id, uint8_t
  */
 static inline uint16_t mavlink_msg_f4_detector_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_f4_detector_t* f4_detector)
 {
-    return mavlink_msg_f4_detector_pack_chan(system_id, component_id, chan, msg, f4_detector->id, f4_detector->class_type, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
+    return mavlink_msg_f4_detector_pack_chan(system_id, component_id, chan, msg, f4_detector->id, f4_detector->class_type, f4_detector->latitude, f4_detector->longitude, f4_detector->dist, f4_detector->vel_n, f4_detector->vel_e, f4_detector->vel_d, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
 }
 
 /**
@@ -223,7 +295,7 @@ static inline uint16_t mavlink_msg_f4_detector_encode_chan(uint8_t system_id, ui
  */
 static inline uint16_t mavlink_msg_f4_detector_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_f4_detector_t* f4_detector)
 {
-    return mavlink_msg_f4_detector_pack_status(system_id, component_id, _status, msg,  f4_detector->id, f4_detector->class_type, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
+    return mavlink_msg_f4_detector_pack_status(system_id, component_id, _status, msg,  f4_detector->id, f4_detector->class_type, f4_detector->latitude, f4_detector->longitude, f4_detector->dist, f4_detector->vel_n, f4_detector->vel_e, f4_detector->vel_d, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
 }
 
 /**
@@ -232,6 +304,12 @@ static inline uint16_t mavlink_msg_f4_detector_encode_status(uint8_t system_id, 
  *
  * @param id  Unique detection identifier.
  * @param class_type  Object classification.
+ * @param latitude [degE7] Latitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param longitude [degE7] Longitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ * @param dist [m] Distance from the aircraft sensor/camera focal point to the POI. NAN if unknown.
+ * @param vel_n [m/s] North velocity of the POI. NAN if unknown.
+ * @param vel_e [m/s] East velocity of the POI. NAN if unknown.
+ * @param vel_d [m/s] Down velocity of the POI. NAN if unknown.
  * @param x  Normalized center X coordinate.
  * @param y  Normalized center Y coordinate.
  * @param w  Normalized width.
@@ -239,21 +317,33 @@ static inline uint16_t mavlink_msg_f4_detector_encode_status(uint8_t system_id, 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_f4_detector_send(mavlink_channel_t chan, uint32_t id, uint8_t class_type, float x, float y, float w, float h)
+static inline void mavlink_msg_f4_detector_send(mavlink_channel_t chan, uint32_t id, uint8_t class_type, int32_t latitude, int32_t longitude, float dist, float vel_n, float vel_e, float vel_d, float x, float y, float w, float h)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_F4_DETECTOR_LEN];
     _mav_put_uint32_t(buf, 0, id);
-    _mav_put_float(buf, 4, x);
-    _mav_put_float(buf, 8, y);
-    _mav_put_float(buf, 12, w);
-    _mav_put_float(buf, 16, h);
-    _mav_put_uint8_t(buf, 20, class_type);
+    _mav_put_int32_t(buf, 4, latitude);
+    _mav_put_int32_t(buf, 8, longitude);
+    _mav_put_float(buf, 12, dist);
+    _mav_put_float(buf, 16, vel_n);
+    _mav_put_float(buf, 20, vel_e);
+    _mav_put_float(buf, 24, vel_d);
+    _mav_put_float(buf, 28, x);
+    _mav_put_float(buf, 32, y);
+    _mav_put_float(buf, 36, w);
+    _mav_put_float(buf, 40, h);
+    _mav_put_uint8_t(buf, 44, class_type);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_F4_DETECTOR, buf, MAVLINK_MSG_ID_F4_DETECTOR_MIN_LEN, MAVLINK_MSG_ID_F4_DETECTOR_LEN, MAVLINK_MSG_ID_F4_DETECTOR_CRC);
 #else
     mavlink_f4_detector_t packet;
     packet.id = id;
+    packet.latitude = latitude;
+    packet.longitude = longitude;
+    packet.dist = dist;
+    packet.vel_n = vel_n;
+    packet.vel_e = vel_e;
+    packet.vel_d = vel_d;
     packet.x = x;
     packet.y = y;
     packet.w = w;
@@ -272,7 +362,7 @@ static inline void mavlink_msg_f4_detector_send(mavlink_channel_t chan, uint32_t
 static inline void mavlink_msg_f4_detector_send_struct(mavlink_channel_t chan, const mavlink_f4_detector_t* f4_detector)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_f4_detector_send(chan, f4_detector->id, f4_detector->class_type, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
+    mavlink_msg_f4_detector_send(chan, f4_detector->id, f4_detector->class_type, f4_detector->latitude, f4_detector->longitude, f4_detector->dist, f4_detector->vel_n, f4_detector->vel_e, f4_detector->vel_d, f4_detector->x, f4_detector->y, f4_detector->w, f4_detector->h);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_F4_DETECTOR, (const char *)f4_detector, MAVLINK_MSG_ID_F4_DETECTOR_MIN_LEN, MAVLINK_MSG_ID_F4_DETECTOR_LEN, MAVLINK_MSG_ID_F4_DETECTOR_CRC);
 #endif
@@ -286,21 +376,33 @@ static inline void mavlink_msg_f4_detector_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_f4_detector_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t id, uint8_t class_type, float x, float y, float w, float h)
+static inline void mavlink_msg_f4_detector_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint32_t id, uint8_t class_type, int32_t latitude, int32_t longitude, float dist, float vel_n, float vel_e, float vel_d, float x, float y, float w, float h)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_uint32_t(buf, 0, id);
-    _mav_put_float(buf, 4, x);
-    _mav_put_float(buf, 8, y);
-    _mav_put_float(buf, 12, w);
-    _mav_put_float(buf, 16, h);
-    _mav_put_uint8_t(buf, 20, class_type);
+    _mav_put_int32_t(buf, 4, latitude);
+    _mav_put_int32_t(buf, 8, longitude);
+    _mav_put_float(buf, 12, dist);
+    _mav_put_float(buf, 16, vel_n);
+    _mav_put_float(buf, 20, vel_e);
+    _mav_put_float(buf, 24, vel_d);
+    _mav_put_float(buf, 28, x);
+    _mav_put_float(buf, 32, y);
+    _mav_put_float(buf, 36, w);
+    _mav_put_float(buf, 40, h);
+    _mav_put_uint8_t(buf, 44, class_type);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_F4_DETECTOR, buf, MAVLINK_MSG_ID_F4_DETECTOR_MIN_LEN, MAVLINK_MSG_ID_F4_DETECTOR_LEN, MAVLINK_MSG_ID_F4_DETECTOR_CRC);
 #else
     mavlink_f4_detector_t *packet = (mavlink_f4_detector_t *)msgbuf;
     packet->id = id;
+    packet->latitude = latitude;
+    packet->longitude = longitude;
+    packet->dist = dist;
+    packet->vel_n = vel_n;
+    packet->vel_e = vel_e;
+    packet->vel_d = vel_d;
     packet->x = x;
     packet->y = y;
     packet->w = w;
@@ -334,7 +436,67 @@ static inline uint32_t mavlink_msg_f4_detector_get_id(const mavlink_message_t* m
  */
 static inline uint8_t mavlink_msg_f4_detector_get_class_type(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint8_t(msg,  20);
+    return _MAV_RETURN_uint8_t(msg,  44);
+}
+
+/**
+ * @brief Get field latitude from f4_detector message
+ *
+ * @return [degE7] Latitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ */
+static inline int32_t mavlink_msg_f4_detector_get_latitude(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  4);
+}
+
+/**
+ * @brief Get field longitude from f4_detector message
+ *
+ * @return [degE7] Longitude (WGS84) of the POI. If unknown: INT32_MAX (both Lat/Lon).
+ */
+static inline int32_t mavlink_msg_f4_detector_get_longitude(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  8);
+}
+
+/**
+ * @brief Get field dist from f4_detector message
+ *
+ * @return [m] Distance from the aircraft sensor/camera focal point to the POI. NAN if unknown.
+ */
+static inline float mavlink_msg_f4_detector_get_dist(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  12);
+}
+
+/**
+ * @brief Get field vel_n from f4_detector message
+ *
+ * @return [m/s] North velocity of the POI. NAN if unknown.
+ */
+static inline float mavlink_msg_f4_detector_get_vel_n(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  16);
+}
+
+/**
+ * @brief Get field vel_e from f4_detector message
+ *
+ * @return [m/s] East velocity of the POI. NAN if unknown.
+ */
+static inline float mavlink_msg_f4_detector_get_vel_e(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  20);
+}
+
+/**
+ * @brief Get field vel_d from f4_detector message
+ *
+ * @return [m/s] Down velocity of the POI. NAN if unknown.
+ */
+static inline float mavlink_msg_f4_detector_get_vel_d(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  24);
 }
 
 /**
@@ -344,7 +506,7 @@ static inline uint8_t mavlink_msg_f4_detector_get_class_type(const mavlink_messa
  */
 static inline float mavlink_msg_f4_detector_get_x(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_float(msg,  4);
+    return _MAV_RETURN_float(msg,  28);
 }
 
 /**
@@ -354,7 +516,7 @@ static inline float mavlink_msg_f4_detector_get_x(const mavlink_message_t* msg)
  */
 static inline float mavlink_msg_f4_detector_get_y(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_float(msg,  8);
+    return _MAV_RETURN_float(msg,  32);
 }
 
 /**
@@ -364,7 +526,7 @@ static inline float mavlink_msg_f4_detector_get_y(const mavlink_message_t* msg)
  */
 static inline float mavlink_msg_f4_detector_get_w(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_float(msg,  12);
+    return _MAV_RETURN_float(msg,  36);
 }
 
 /**
@@ -374,7 +536,7 @@ static inline float mavlink_msg_f4_detector_get_w(const mavlink_message_t* msg)
  */
 static inline float mavlink_msg_f4_detector_get_h(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_float(msg,  16);
+    return _MAV_RETURN_float(msg,  40);
 }
 
 /**
@@ -387,6 +549,12 @@ static inline void mavlink_msg_f4_detector_decode(const mavlink_message_t* msg, 
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     f4_detector->id = mavlink_msg_f4_detector_get_id(msg);
+    f4_detector->latitude = mavlink_msg_f4_detector_get_latitude(msg);
+    f4_detector->longitude = mavlink_msg_f4_detector_get_longitude(msg);
+    f4_detector->dist = mavlink_msg_f4_detector_get_dist(msg);
+    f4_detector->vel_n = mavlink_msg_f4_detector_get_vel_n(msg);
+    f4_detector->vel_e = mavlink_msg_f4_detector_get_vel_e(msg);
+    f4_detector->vel_d = mavlink_msg_f4_detector_get_vel_d(msg);
     f4_detector->x = mavlink_msg_f4_detector_get_x(msg);
     f4_detector->y = mavlink_msg_f4_detector_get_y(msg);
     f4_detector->w = mavlink_msg_f4_detector_get_w(msg);

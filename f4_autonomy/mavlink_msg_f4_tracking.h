@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE F4_TRACKING PACKING
 
-#define MAVLINK_MSG_ID_F4_TRACKING 61300
+#define MAVLINK_MSG_ID_F4_TRACKING 62708
 
 
 typedef struct __mavlink_f4_tracking_t {
@@ -16,17 +16,17 @@ typedef struct __mavlink_f4_tracking_t {
 
 #define MAVLINK_MSG_ID_F4_TRACKING_LEN 28
 #define MAVLINK_MSG_ID_F4_TRACKING_MIN_LEN 28
-#define MAVLINK_MSG_ID_61300_LEN 28
-#define MAVLINK_MSG_ID_61300_MIN_LEN 28
+#define MAVLINK_MSG_ID_62708_LEN 28
+#define MAVLINK_MSG_ID_62708_MIN_LEN 28
 
 #define MAVLINK_MSG_ID_F4_TRACKING_CRC 132
-#define MAVLINK_MSG_ID_61300_CRC 132
+#define MAVLINK_MSG_ID_62708_CRC 132
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_F4_TRACKING { \
-    61300, \
+    62708, \
     "F4_TRACKING", \
     7, \
     {  { "id", NULL, MAVLINK_TYPE_UINT32_T, 0, 0, offsetof(mavlink_f4_tracking_t, id) }, \

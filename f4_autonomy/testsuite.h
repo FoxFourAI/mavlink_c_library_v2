@@ -102,11 +102,17 @@ static void mavlink_test_f4_detector(uint8_t system_id, uint8_t component_id, ma
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_f4_detector_t packet_in = {
-        963497464,45.0,73.0,101.0,129.0,65
+        963497464,963497672,963497880,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,137
     };
     mavlink_f4_detector_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.id = packet_in.id;
+        packet1.latitude = packet_in.latitude;
+        packet1.longitude = packet_in.longitude;
+        packet1.dist = packet_in.dist;
+        packet1.vel_n = packet_in.vel_n;
+        packet1.vel_e = packet_in.vel_e;
+        packet1.vel_d = packet_in.vel_d;
         packet1.x = packet_in.x;
         packet1.y = packet_in.y;
         packet1.w = packet_in.w;
@@ -126,12 +132,12 @@ static void mavlink_test_f4_detector(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_detector_pack(system_id, component_id, &msg , packet1.id , packet1.class_type , packet1.x , packet1.y , packet1.w , packet1.h );
+    mavlink_msg_f4_detector_pack(system_id, component_id, &msg , packet1.id , packet1.class_type , packet1.latitude , packet1.longitude , packet1.dist , packet1.vel_n , packet1.vel_e , packet1.vel_d , packet1.x , packet1.y , packet1.w , packet1.h );
     mavlink_msg_f4_detector_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_detector_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.class_type , packet1.x , packet1.y , packet1.w , packet1.h );
+    mavlink_msg_f4_detector_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.class_type , packet1.latitude , packet1.longitude , packet1.dist , packet1.vel_n , packet1.vel_e , packet1.vel_d , packet1.x , packet1.y , packet1.w , packet1.h );
     mavlink_msg_f4_detector_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -144,7 +150,7 @@ static void mavlink_test_f4_detector(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_detector_send(MAVLINK_COMM_1 , packet1.id , packet1.class_type , packet1.x , packet1.y , packet1.w , packet1.h );
+    mavlink_msg_f4_detector_send(MAVLINK_COMM_1 , packet1.id , packet1.class_type , packet1.latitude , packet1.longitude , packet1.dist , packet1.vel_n , packet1.vel_e , packet1.vel_d , packet1.x , packet1.y , packet1.w , packet1.h );
     mavlink_msg_f4_detector_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
