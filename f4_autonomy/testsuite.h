@@ -25,50 +25,54 @@ static void mavlink_test_all(uint8_t system_id, uint8_t component_id, mavlink_me
 #include "../common/testsuite.h"
 
 
-static void mavlink_test_f4_tracking(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+static void mavlink_test_companion_version(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
     mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
-        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_F4_TRACKING >= 256) {
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_COMPANION_VERSION >= 256) {
             return;
         }
 #endif
     mavlink_message_t msg;
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
-    mavlink_f4_tracking_t packet_in = {
-        963497464,45.0,73.0,101.0,129.0,963498504,963498712
+    mavlink_companion_version_t packet_in = {
+        93372036854775807ULL,93372036854776311ULL,963498296,963498504,963498712,963498920,18899,19003,{ 113, 114, 115, 116, 117, 118, 119, 120 },{ 137, 138, 139, 140, 141, 142, 143, 144 },{ 161, 162, 163, 164, 165, 166, 167, 168 }
     };
-    mavlink_f4_tracking_t packet1, packet2;
+    mavlink_companion_version_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
-        packet1.id = packet_in.id;
-        packet1.x = packet_in.x;
-        packet1.y = packet_in.y;
-        packet1.w = packet_in.w;
-        packet1.h = packet_in.h;
-        packet1.timestamp_high = packet_in.timestamp_high;
-        packet1.timestamp_low = packet_in.timestamp_low;
+        packet1.capabilities = packet_in.capabilities;
+        packet1.uid = packet_in.uid;
+        packet1.flight_sw_version = packet_in.flight_sw_version;
+        packet1.middleware_sw_version = packet_in.middleware_sw_version;
+        packet1.os_sw_version = packet_in.os_sw_version;
+        packet1.board_version = packet_in.board_version;
+        packet1.vendor_id = packet_in.vendor_id;
+        packet1.product_id = packet_in.product_id;
         
+        mav_array_memcpy(packet1.flight_custom_version, packet_in.flight_custom_version, sizeof(uint8_t)*8);
+        mav_array_memcpy(packet1.middleware_custom_version, packet_in.middleware_custom_version, sizeof(uint8_t)*8);
+        mav_array_memcpy(packet1.os_custom_version, packet_in.os_custom_version, sizeof(uint8_t)*8);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
            // cope with extensions
-           memset(MAVLINK_MSG_ID_F4_TRACKING_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_F4_TRACKING_MIN_LEN);
+           memset(MAVLINK_MSG_ID_COMPANION_VERSION_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_COMPANION_VERSION_MIN_LEN);
         }
 #endif
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_tracking_encode(system_id, component_id, &msg, &packet1);
-    mavlink_msg_f4_tracking_decode(&msg, &packet2);
+    mavlink_msg_companion_version_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_companion_version_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_tracking_pack(system_id, component_id, &msg , packet1.id , packet1.x , packet1.y , packet1.w , packet1.h , packet1.timestamp_high , packet1.timestamp_low );
-    mavlink_msg_f4_tracking_decode(&msg, &packet2);
+    mavlink_msg_companion_version_pack(system_id, component_id, &msg , packet1.capabilities , packet1.flight_sw_version , packet1.middleware_sw_version , packet1.os_sw_version , packet1.board_version , packet1.flight_custom_version , packet1.middleware_custom_version , packet1.os_custom_version , packet1.vendor_id , packet1.product_id , packet1.uid );
+    mavlink_msg_companion_version_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_tracking_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.id , packet1.x , packet1.y , packet1.w , packet1.h , packet1.timestamp_high , packet1.timestamp_low );
-    mavlink_msg_f4_tracking_decode(&msg, &packet2);
+    mavlink_msg_companion_version_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.capabilities , packet1.flight_sw_version , packet1.middleware_sw_version , packet1.os_sw_version , packet1.board_version , packet1.flight_custom_version , packet1.middleware_custom_version , packet1.os_custom_version , packet1.vendor_id , packet1.product_id , packet1.uid );
+    mavlink_msg_companion_version_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
@@ -76,17 +80,17 @@ static void mavlink_test_f4_tracking(uint8_t system_id, uint8_t component_id, ma
         for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
             comm_send_ch(MAVLINK_COMM_0, buffer[i]);
         }
-    mavlink_msg_f4_tracking_decode(last_msg, &packet2);
+    mavlink_msg_companion_version_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_f4_tracking_send(MAVLINK_COMM_1 , packet1.id , packet1.x , packet1.y , packet1.w , packet1.h , packet1.timestamp_high , packet1.timestamp_low );
-    mavlink_msg_f4_tracking_decode(last_msg, &packet2);
+    mavlink_msg_companion_version_send(MAVLINK_COMM_1 , packet1.capabilities , packet1.flight_sw_version , packet1.middleware_sw_version , packet1.os_sw_version , packet1.board_version , packet1.flight_custom_version , packet1.middleware_custom_version , packet1.os_custom_version , packet1.vendor_id , packet1.product_id , packet1.uid );
+    mavlink_msg_companion_version_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
 #ifdef MAVLINK_HAVE_GET_MESSAGE_INFO
-    MAVLINK_ASSERT(mavlink_get_message_info_by_name("F4_TRACKING") != NULL);
-    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_F4_TRACKING) != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_name("COMPANION_VERSION") != NULL);
+    MAVLINK_ASSERT(mavlink_get_message_info_by_id(MAVLINK_MSG_ID_COMPANION_VERSION) != NULL);
 #endif
 }
 
@@ -102,10 +106,11 @@ static void mavlink_test_f4_detector(uint8_t system_id, uint8_t component_id, ma
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_f4_detector_t packet_in = {
-        963497464,963497672,963497880,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,137
+        93372036854775807ULL,963497880,963498088,963498296,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0
     };
     mavlink_f4_detector_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
+        packet1.class_type = packet_in.class_type;
         packet1.id = packet_in.id;
         packet1.latitude = packet_in.latitude;
         packet1.longitude = packet_in.longitude;
@@ -117,7 +122,6 @@ static void mavlink_test_f4_detector(uint8_t system_id, uint8_t component_id, ma
         packet1.y = packet_in.y;
         packet1.w = packet_in.w;
         packet1.h = packet_in.h;
-        packet1.class_type = packet_in.class_type;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -162,7 +166,7 @@ static void mavlink_test_f4_detector(uint8_t system_id, uint8_t component_id, ma
 
 static void mavlink_test_f4_autonomy(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
-    mavlink_test_f4_tracking(system_id, component_id, last_msg);
+    mavlink_test_companion_version(system_id, component_id, last_msg);
     mavlink_test_f4_detector(system_id, component_id, last_msg);
 }
 
