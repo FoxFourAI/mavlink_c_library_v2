@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_F4_AUTONOMY.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_F4_AUTONOMY_XML_HASH 1778998521916697793
+#define MAVLINK_F4_AUTONOMY_XML_HASH -2754409885173496528
 
 #ifdef __cplusplus
 extern "C" {
