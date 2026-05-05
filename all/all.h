@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_ALL.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_ALL_XML_HASH 120985108385967557
+#define MAVLINK_ALL_XML_HASH 1320608234807280819
 
 #ifdef __cplusplus
 extern "C" {
@@ -429,7 +429,8 @@ typedef enum MAV_CMD
    MAV_CMD_IGNORE_DETECTOR_REGION=62712, /* Ignore detections in specified region. (unsupported) |Latitude.| Longitude.| Ignore radius| Empty| Empty| Empty| Empty|  */
    MAV_CMD_DO_F4NAV_CONTROL=62713, /* Control F4 Navigation |Turn on/off| The type of mission to perform| Empty| Empty| Empty| Empty| Empty|  */
    MAV_CMD_DO_VGM_OPMODE_CONTROL=62714, /* Control VGM Operation Mode |The type of VGM operation mode| Empty| Empty| Empty| Empty| Empty| Empty|  */
-   MAV_CMD_ENUM_END=62715, /*  | */
+   MAV_CMD_DO_REGION_ZOOM=62715, /* Zoom to specified region. |Normalized top left corner X coordinate.| Normalized top left corner Y coordinate.| Normalized bottom right corner X coordinate.| Normalized bottom right corner Y coordinate.| Empty| Empty| Empty|  */
+   MAV_CMD_ENUM_END=62716, /*  | */
 } MAV_CMD;
 #endif
 
