@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_MINIMAL.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_MINIMAL_XML_HASH -1596757856836150481
+#define MAVLINK_MINIMAL_XML_HASH -4553333678755146038
 
 #ifdef __cplusplus
 extern "C" {
@@ -329,8 +329,7 @@ typedef enum MAV_COMPONENT
    MAV_COMP_ID_TUNNEL_NODE=242, /* Component handling TUNNEL messages (e.g. vendor specific GUI of a component). | */
    MAV_COMP_ID_ILLUMINATOR=243, /* Illuminator | */
    MAV_COMP_ID_SYSTEM_CONTROL=250, /* Deprecated, don't use. Component for handling system messages (e.g. to ARM, takeoff, etc.). | */
-   MAV_COMP_ID_VGM=254, /* Visual-Guidance Module | */
-   MAV_COMPONENT_ENUM_END=255, /*  | */
+   MAV_COMPONENT_ENUM_END=251, /*  | */
 } MAV_COMPONENT;
 #endif
 
